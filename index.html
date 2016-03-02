@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Skeleton Candles</title>
+<link href="index.css" rel="stylesheet" type="text/css">
+
+</head>
+
+
+    <h1>Shop</h1>
+
+    <p>
+    	Choose the candles and then estimate order.
+	</p>
+
+
+    <form class="cart" id="cart-oil">
+    <div class="item">
+	    <h2>16oz. 100% Soy Candle</h2>
+	    <p>70-80 hours burn time</p>
+
+	    <div class="info">
+	    <span>Price: $18/one. $30/two.</span>
+	    </div>
+
+	    <div class="order">
+	    <label for="txt-q-extra">Quantity desired:</label>
+	    <input type="text" id="txt-q-extra" size="3" placeholder="0">
+	    </div>
+    </div>
+
+    <div class="item">
+        <h2>6oz. 100% Soy Candle</h2>
+        <p>45-50 hours burn time</p>
+
+        <div class="info">
+        <span>Price: $8/candle.</span>
+        </div>
+
+        <div class="order">
+        <label for="txt-q-cold">Quantity desired:</label>
+        <input type="text" id="txt-q-cold" size="3" placeholder="0">
+        </div>
+    </div>
+
+<!--    <div class="item">
+        <h2>Garlic-infused</h2>
+        <p>If you love garlic, this is the one for you.</p>
+
+        <div class="info">
+        <span>Price: $10/bottle</span>
+        </div>
+
+        <div class="order">
+        <label for="txt-q-garlic">Quantity desired:</label>
+        <input type="text" id="txt-q-garlic" size="3" placeholder="0">
+        </div>
+    </div>
+-->
+    <div id="summary">
+    	<h2>Estimate Order</h2>
+<!--    	<div class="group state">
+	    	<label for="s-state">State:</label>
+	    	<select id="s-state">
+		    	<option value="">- select -</option>
+		    	<option value="CA">California (7.5% tax)</option>
+		    	<option value="IL">Illinois</option>
+		    	<option value="NH">New Hampshire</option>
+		    	<option value="PA">Pennsylvania</option>
+	    	</select>
+    	</div>
+-->
+    	<div class="group method">
+	    	<label for="r-method-pickup">Shipping Method:</label><br>
+			<input type="radio" value="pickup" name="r_method" id="r-method-pickup" checked> <label for="r-method-pickup">Included (free)</label><br>
+			</div>
+
+    	<div class="group calc">
+    		<p>
+    		<label for="btn-estimate">Click to estimate:</label>
+    		<input type="submit" value="Estimate Total" id="btn-estimate">
+    		<input type="text" id="txt-estimate" placeholder="$0.00">
+    		</p>
+
+    		<div id="results"></div>
+    	</div>
+    </div>
+
+    </form>
+
+  </div>
+
+  <div id="footer"><a href="index.html">home</a> | about | <a href="process.html">process</a> | <a href="shop.html">shop</a> | <a href="contact.html">contact</a></div>
+</div>
+
+<script type="text/javascript">
+"use strict";
+
+// this only works in IE9 and above, but fine everywhere else
+/*document.getElementById("cart-oil").addEventListener( "submit", estimateOrder, false );
+
+function estimateOrder(event) {
+	// do not try to submit this form
+	event.preventDefault();
+
+	if (document.getElementById('s-state').value === '') {
+		alert('Please choose your shipping state.');
+
+		// trigger a focus event on the offending field
+		document.getElementById('s-state').focus();
+		return;
+	}
+
+	// collect the quantity of each kind of bottle
+	// we're sanitizing these values since the user could put in any old thing
+	var btlExtra = parseInt(document.getElementById('txt-q-extra').value, 10) || 0,
+		btlCold = parseInt(document.getElementById('txt-q-cold').value, 10) || 0,
+		btlGarlic = parseInt(document.getElementById('txt-q-garlic').value, 10) || 0;
+
+	var totalBottles = btlExtra + btlCold + btlGarlic;
+
+	// collect the state
+	var state = document.getElementById('s-state').value;
+	var taxFactor = 1;
+	if (state === 'CA') taxFactor = 1.075; // 7.5% tax in California
+
+	// collect the radio button's value
+	var method = document.getElementById('cart-oil').r_method,
+		methodValue = '';
+
+	for (var i = 0; i < method.length; i++) {
+		if (method[i].checked) {
+			methodValue = method[i].value;
+			break;
+		}
+	}
+
+	var shippingPrice = 0;
+	switch (methodValue) {
+		case 'pickup' :
+			// we don't charge for in-person pickup
+			shippingPrice = 0;
+			break;
+		case 'usps' :
+			// USPS: $2 per bottle
+			shippingPrice = 2 * totalBottles;
+			break;
+		case 'ups' :
+			// UPS: $3 per bottle
+			shippingPrice = 3 * totalBottles;
+			break;
+	}
+			console.log('shipping price: ' + shippingPrice);
+
+	var estimate = (btlExtra * 10 + btlCold * 8 + btlGarlic * 10) * taxFactor + shippingPrice;
+
+	document.getElementById('txt-estimate').value = '$' + estimate.toFixed(2);
+
+	document.getElementById('results').innerHTML = 'Total bottles: ' + totalBottles + '<br>';
+	document.getElementById('results').innerHTML += 'Total shipping: $' + shippingPrice.toFixed(2) + '<br>';
+	document.getElementById('results').innerHTML += 'Total tax: ' + ((taxFactor - 1) * 100).toFixed(2) + '%';
+}
+</script>
+	<script src="script.js"></script>
+</body>
+
+</html>
